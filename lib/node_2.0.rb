@@ -26,9 +26,9 @@ class LinkedList
     return node if node.value == value
 
     until theres_not_right?(node)
-      return node.to_s if node.value == value
-
       node = node.next_node
+      return node if node.value == value
+
     end
 
     puts "#{value} not found"
@@ -108,5 +108,8 @@ list.append(1)
 list.append(2)
 list.append(3)
 list.append(4)
+
+list.find(2)
+list.find(4)
 
 list.print
