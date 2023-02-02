@@ -1,17 +1,17 @@
-require 'pry-byebug'
+require "pry-byebug"
 
 class Node
   attr_accessor :value, :next_node
+
   def initialize(value)
-    @value = value
+    @value     = value
     @next_node = nil
   end
 
   def to_s
-    puts "Found! Value: #{@value} in LinkedList"
+    "Node: #{@value}"
   end
 end
-
 
 class LinkedList
   attr_accessor :head
@@ -19,7 +19,6 @@ class LinkedList
   def initialize
     @head = nil
   end
-
 
   def find(value)
     node = @head
@@ -32,9 +31,8 @@ class LinkedList
       node = node.next_node
     end
 
-    puts "#{value} not found in #{self}"
+    puts "#{value} not found"
   end
-
 
   def find_tail
     node = @head
@@ -83,11 +81,13 @@ class LinkedList
       node = node.next_node
     end
 
-    puts "#{value} not found in #{self}"
+    puts "#{value} not found, could not be deleted"
   end
 
   def print
     node = @head
+    return puts "No items in this LinkedList" if node.nil?
+
     puts node.to_s
 
     until theres_not_right?(node)
@@ -103,14 +103,10 @@ class LinkedList
   end
 end
 
-
 list = LinkedList.new
-list.append(23)
-list.append(65)
-list.append(45)
-list.append(21)
-list.append(34)
+list.append(1)
+list.append(2)
+list.append(3)
+list.append(4)
 
-list.delete(21)
-list.append_after(65, 99)
 list.print
