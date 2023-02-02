@@ -1,17 +1,17 @@
-require "pry-byebug"
+require 'pry-byebug'
 
 class Node
   attr_accessor :value, :next_node
-
   def initialize(value)
-    @value     = value
+    @value = value
     @next_node = nil
   end
 
   def to_s
-    "Node: #{@value}"
+    puts "Found! Value: #{@value} in LinkedList"
   end
 end
+
 
 class LinkedList
   attr_accessor :head
@@ -20,26 +20,28 @@ class LinkedList
     @head = nil
   end
 
+
   def find(value)
     node = @head
 
     return node if node.value == value
 
-    until theres_no_right?(node)
-      return node if node.value == value
+    until theres_not_right?(node)
+      return node.to_s if node.value == value
 
       node = node.next_node
     end
 
-    puts "#{value} not found"
+    puts "#{value} not found in #{self}"
   end
+
 
   def find_tail
     node = @head
 
-    return node if theres_no_right?(node)
+    return node if theres_not_right?(node)
 
-    until theres_no_right?(node)
+    until theres_not_right?(node)
       node = node.next_node
     end
 
@@ -72,7 +74,7 @@ class LinkedList
       return
     end
 
-    until theres_no_right?(node)
+    until theres_not_right?(node)
       if node.next_node.value == value
         node.next_node = node.next_node.next_node
         return
@@ -81,16 +83,14 @@ class LinkedList
       node = node.next_node
     end
 
-    puts "#{value} not found, could not be deleted"
+    puts "#{value} not found in #{self}"
   end
 
   def print
     node = @head
-    return puts "No items in this LinkedList" if node.nil?
-
     puts node.to_s
 
-    until theres_no_right?(node)
+    until theres_not_right?(node)
       node = node.next_node
       puts node.to_s
     end
@@ -98,7 +98,19 @@ class LinkedList
 
   private
 
-  def theres_no_right?(node)
+  def theres_not_right?(node)
     !node.next_node
   end
 end
+
+
+list = LinkedList.new
+list.append(23)
+list.append(65)
+list.append(45)
+list.append(21)
+list.append(34)
+
+list.delete(21)
+list.append_after(65, 99)
+list.print
